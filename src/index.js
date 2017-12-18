@@ -159,6 +159,22 @@ class XHRUploader extends Component {
     }
   }
 
+  humanFileSize = function(bytes, si) {
+      var thresh = si ? 1000 : 1024;
+      if(Math.abs(bytes) < thresh) {
+          return bytes + ' B';
+      }
+      var units = si
+          ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+          : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+      var u = -1;
+      do {
+          bytes /= thresh;
+          ++u;
+      } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+      return bytes.toFixed(1)+' '+units[u];
+  }
+
   uploadFile(file, progressCallback) {
     if (file) {
       const formData = new FormData();
@@ -244,7 +260,7 @@ class XHRUploader extends Component {
                     <div style={styles.fileDetails}>
                       <span className="icon-file icon-large">&nbsp;</span>
                       <span style={styles.fileName}>{`${file.name}, ${file.type}`}</span>
-                      <span style={styles.fileSize}>{`${sizeInMB} Mb`}</span>
+                      <span style={styles.fileSize}>{`${this.humanFileSize(sizeInMB)} Mb`}</span>
                       <i
                         className={iconClass}
                         style={{cursor: 'pointer'}}
