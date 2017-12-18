@@ -251,7 +251,7 @@ class XHRUploader extends Component {
           <div style={filesetStyle}>
           {
             items.filter(item => !item.cancelled).map((item) => {
-              try{
+              try {
                 const file = item.file;
                 const sizeInMB = (file.size / (1024 * 1024)).toPrecision(2);
                 const iconClass = item.progress < 100 ? cancelIconClass : completeIconClass;
@@ -277,10 +277,10 @@ class XHRUploader extends Component {
                     </div>
                   </div>
                 );
-              } catch(ex) {
-                console.log("React XHR Uploader Size Bug:", ex);
+              } catch (ex) {
+                console.log('React XHR Uploader Size Bug:', ex);
                 return null;
-              }
+              } 
             })
           }
           </div>
